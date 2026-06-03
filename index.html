@@ -536,6 +536,21 @@
       width: 100%;
     }
 
+    .summary-visual {
+      width: 100%;
+      margin-bottom: 14px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(210, 79, 134, 0.10);
+      box-shadow: 0 12px 24px rgba(210, 79, 134, 0.08);
+    }
+
+    .summary-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .summary-grid {
       display: grid;
       gap: 8px;
@@ -707,7 +722,6 @@
         </div>
 
         <h1>Tu es une fille ou un garçon ?</h1>
-        <p class="lead">Promis, c’est juste pour l’ambiance.</p>
 
         <div class="choice-pills">
           <button class="btn btn-primary choice-btn" id="girlBtn" type="button">Fille</button>
@@ -735,7 +749,6 @@
         </div>
 
         <h1>Tu veux aller boire un verre avec moi ?</h1>
-        <p class="lead">Choisis bien. Le bouton rose est très sensible.</p>
         <p class="status" id="status" aria-live="polite"></p>
 
         <div class="actions" id="actions">
@@ -807,7 +820,7 @@
       </div>
 
       <div class="final" id="finalView">
-        <h2>On a un rendez-vous !</h2>
+        <h2>On a un rendez-vous GRRRRR</h2>
         <p class="final-note" id="finalLine">Trop bien. 21:00, j’essaie de ne pas paniquer.</p>
 
         <div class="summary" id="summaryBox"></div>
@@ -1069,7 +1082,7 @@
       nonBtn.style.top = `${randomWithin(yMin, yMax)}px`;
 
       if (nonAttempts >= 5) {
-        statusEl.textContent = 'Bon, elle est longue à arriver, la réponse, là ^^';
+        statusEl.textContent = 'Bon, elle est longue à arriver la réponse là ^^';
       } else {
         statusEl.textContent = `Tu es à ${nonAttempts} tentative${nonAttempts > 1 ? 's' : ''} de sabotage.`;
       }
@@ -1107,13 +1120,19 @@
 
       summaryBox.innerHTML = `
         <div class="summary-grid">
+          <div class="summary-visual">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZFAuReXW97sh6Iyg1ht4nK9c4PrJsgAuYgA&s" alt="Chat" />
+          </div>
           <p><strong>Pseudo :</strong> ${selectedPseudo || 'à définir'}</p>
           <p><strong>Date :</strong> ${dateText}</p>
           <p><strong>Heure :</strong> ${timeText}</p>
           <p><strong>Repas :</strong> ${foodText}</p>
-          <p><strong>Plan :</strong> verres, sourires et excellentes décisions.</p>
         </div>
       `;
+    }
+
+    function finalLineForTime(timeChoice) {
+      return 'T’es sûr de ne pas t’être trompé ?';
     }
 
     function buildPayload() {
@@ -1206,7 +1225,7 @@
       buildSummary();
       setProgress(4);
       showView(finalView);
-      finalLine.textContent = 'Trop bien. 21:00, j’essaie de ne pas paniquer.';
+      finalLine.textContent = finalLineForTime(selectedTime);
       makeHearts(20);
     });
 
